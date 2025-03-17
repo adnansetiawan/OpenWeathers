@@ -1,3 +1,8 @@
+**Notes:**
+1. Unit Testing using xUnit
+2. The exception at the API level is handled by custom middleware in the **ErrorMiddleware.cs** file where Exception errors will be translated into different types of HTTP response errors.
+3. Based on the requirements, since the .NET project uses .NET 3.1, some packages may be shown as vulnerable or deprecated.
+
 **Service and API Projects**
 
 1. Clone the repository
