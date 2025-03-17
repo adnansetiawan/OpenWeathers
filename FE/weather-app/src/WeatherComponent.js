@@ -11,10 +11,10 @@ const WeatherComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-
+  const baseUrl = "https://localhost:44321";
   // Fetch countries from Countries API
   useEffect(() => {
-    axios.get(`https://localhost:44321/location/countries`)
+    axios.get(`${baseUrl}/location/countries`)
       .then(response => {
          const countryList = response.data.data.map(country => ({
           name: country.name,
@@ -32,7 +32,7 @@ const WeatherComponent = () => {
 
     const options = {
       method: 'GET',
-      url: `https://localhost:44321/location/cities?countryID=${selectedCountry}`
+      url: `${baseUrl}/location/cities?countryID=${selectedCountry}`
     };
 
     axios.request(options)
@@ -57,7 +57,7 @@ const WeatherComponent = () => {
   const getWeatherData = () => {
     setIsLoading(true);
     setError(null);
-    const url = `https://localhost:44321/WeatherForecast?city=${selectedCity}`;
+    const url = `${baseUrl}/WeatherForecast?city=${selectedCity}`;
 
     axios.get(url)
       .then(response => {

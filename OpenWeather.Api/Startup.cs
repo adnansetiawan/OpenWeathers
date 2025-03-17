@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using OpenWeather.Api.Middlewares;
+using OpenWeather.Core;
 using OpenWeather.Core.Interfaces;
 using OpenWeather.Core.Services;
 using System;

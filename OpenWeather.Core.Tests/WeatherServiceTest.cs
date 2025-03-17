@@ -16,21 +16,22 @@ namespace OpenWeather.Core.Tests
 {
     public class WeatherServiceTest
     {
-
+        private readonly Mock<IConfiguration> _mockConfiguration;
+        private readonly IAppConfig _appConfig;
+        private readonly Mock<IHttpClientFactory> _mockHttpClientFactory;
+        public WeatherServiceTest()
+        {
+            _mockConfiguration = new Mock<IConfiguration>();
+            _appConfig = new AppConfig(_mockConfiguration.Object);
+            _mockHttpClientFactory = new Mock<IHttpClientFactory>();
+        }
         [Fact]
         public async void ShouldThrowInternalErrorException_WhenAppId_IsNull()
         {
-            // Arrange
-            var mockConfiguration = new Mock<IConfiguration>();
-
+           
             // Mock the behavior for a specific key
-            mockConfiguration.Setup(c => c["AppId"]).Returns(string.Empty);
-
-            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
-
-            var appConfig = new AppConfig(mockConfiguration.Object);
-            var weatherService = new WeatherService(mockHttpClientFactory.Object, appConfig);
-
+            _mockConfiguration.Setup(c => c["AppId"]).Returns(string.Empty);
+            var weatherService = new WeatherService(_mockHttpClientFactory.Object, _appConfig);
             // Act & Assert
             var exception = await Assert.ThrowsAsync<Exceptions.InternalServerErrorRequestException>(() => weatherService.GetWeatherAsync(new Dto.WeatherApiRequest
             { 
@@ -41,15 +42,11 @@ namespace OpenWeather.Core.Tests
 
         [Fact]
         
-        public async Task TemperaturConvertionIsCorrect()
+        public async Task ShouldReturnCorrectTemperatur_When_DataIsFound()
         {
-            var mockConfiguration = new Mock<IConfiguration>();
-
-            mockConfiguration.Setup(c => c["AppId"]).Returns("xxxx");
-
-
+           
+            _mockConfiguration.Setup(c => c["AppId"]).Returns("xxxx");
             var mockData = WeatherApiMockData.GetOkData();
-            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
 
 
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
@@ -68,11 +65,10 @@ namespace OpenWeather.Core.Tests
 
             var httpClient = new HttpClient(mockHttpMessageHandler.Object);
 
-            mockHttpClientFactory.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(httpClient);
+            _mockHttpClientFactory.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
 
-            var appConfig = new AppConfig(mockConfiguration.Object);
-            var weatherService = new WeatherService(mockHttpClientFactory.Object, appConfig);
+            var weatherService = new WeatherService(_mockHttpClientFactory.Object, _appConfig);
 
             // Act
             var result = await weatherService.GetWeatherAsync(new Dto.WeatherApiRequest
@@ -84,17 +80,14 @@ namespace OpenWeather.Core.Tests
         }
         [Fact]
 
-        public async Task ShouldThrowDataNotFoundException_WhenApi_Return404()
+        public async Task ShouldThrowException_When_DataIsNotFound()
         {
-            var mockConfiguration = new Mock<IConfiguration>();
-
-            mockConfiguration.Setup(c => c["AppId"]).Returns("xxxx");
+            
+            _mockConfiguration.Setup(c => c["AppId"]).Returns("xxxx");
 
 
             var mockData = WeatherApiMockData.GetNotFoundData();
-            var mockHttpClientFactory = new Mock<IHttpClientFactory>();
-
-
+            
             var mockHttpMessageHandler = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             mockHttpMessageHandler
                 .Protected()
@@ -111,11 +104,10 @@ namespace OpenWeather.Core.Tests
 
             var httpClient = new HttpClient(mockHttpMessageHandler.Object);
 
-            mockHttpClientFactory.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(httpClient);
+            _mockHttpClientFactory.Setup(_ => _.CreateClient(It.IsAny<string>())).Returns(httpClient);
 
 
-            var appConfig = new AppConfig(mockConfiguration.Object);
-            var weatherService = new WeatherService(mockHttpClientFactory.Object, appConfig);
+            var weatherService = new WeatherService(_mockHttpClientFactory.Object, _appConfig);
 
             //act & assert
             var exception = await Assert.ThrowsAsync<Exceptions.DataNotFoundException>(() => weatherService.GetWeatherAsync(new Dto.WeatherApiRequest
