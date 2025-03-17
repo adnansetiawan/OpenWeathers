@@ -23,7 +23,7 @@ namespace OpenWeather.Api
         {
             Configuration = configuration;
         }
-
+        private const string AllowCrossPolicy = "AllowAll";
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -43,6 +43,16 @@ namespace OpenWeather.Api
                     Description = "A simple api for weather forecasting",
                 });
             });
+            services.AddCors(options => {
+                options.AddPolicy(AllowCrossPolicy,
+                   builder => {
+                       builder.AllowAnyOrigin()
+                      .AllowAnyMethod()
+                      .AllowAnyHeader();
+                   });
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +66,8 @@ namespace OpenWeather.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(AllowCrossPolicy);
 
             app.UseAuthorization();
 

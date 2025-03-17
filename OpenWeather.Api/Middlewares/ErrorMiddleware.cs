@@ -64,7 +64,8 @@ namespace OpenWeather.Api.Middlewares
                 await context.Response.WriteAsync(JsonConvert.SerializeObject(error));
                 return;
             }
-
+            var readToEnd = await new StreamReader(memoryStream).ReadToEndAsync();
+            await context.Response.WriteAsync(readToEnd);
         }
     }
 }

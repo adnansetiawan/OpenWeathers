@@ -1,0 +1,20 @@
+.weather-container {
+  width: 80%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+select {
+  padding: 5px;
+  margin: 10px;
+  font-size: 16px;
+}
+
+.error {
+  color: red;
+  font-weight: bold;
+}
+
+h3 {
+  margin-top: 20px;
+}

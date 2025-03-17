@@ -25,6 +25,7 @@ namespace OpenWeather.Core.Dto
 
         public int Visibility { get; set; }
 
+        public Wind Wind { get; set; }  
         public Cloud Clouds { get; set; }    
       
     }
