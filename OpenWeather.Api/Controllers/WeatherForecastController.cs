@@ -34,5 +34,7 @@ namespace OpenWeather.Api.Controllers
             });
             return Ok(new Dto.ResponseApiDto<WeatherApiResponse>(response));
         }
+
+
     }
 }

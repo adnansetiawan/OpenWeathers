@@ -33,6 +33,8 @@ namespace OpenWeather.Api
             services.AddHttpClient();
             services.AddSingleton<IAppConfig>(new AppConfig(Configuration));
             services.AddScoped<IWeatherService, WeatherService>();
+            services.AddScoped<ILocationService, LocationService>();
+
             services.AddSwaggerGen();
             services.AddSwaggerGen(c =>
             {

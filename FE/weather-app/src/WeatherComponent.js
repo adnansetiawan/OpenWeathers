@@ -2,41 +2,57 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const WeatherComponent = () => {
-  const [countries] = useState([
-    { name: 'Indonesia', code : 'ID'},
-    { name: 'United States', code: 'US' },
-    { name: 'United Kingdom', code: 'GB' },
-    { name: 'Japan', code: 'JP' },
-    { name: 'France', code: 'FR' },
-  ]);
+ 
+  const [countries, setCountries] = useState([]);
   const [cities, setCities] = useState([]);
-  const [selectedCountry, setSelectedCountry] = useState('ID');
+  const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedCity, setSelectedCity] = useState('');
   const [weatherData, setWeatherData] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
 
+  // Fetch countries from Countries API
   useEffect(() => {
-    
-    const countryCities = {
-      ID: ['Jakarta', 'Bandung', 'Semarang', 'Surabaya', 'Makassar', 'Medan'],
-      US: ['New York', 'Los Angeles', 'Chicago', 'Houston'],
-      GB: ['London', 'Manchester', 'Birmingham'],
-      JP: ['Tokyo', 'Osaka', 'Kyoto'],
-      FR: ['Paris', 'Lyon', 'Marseille'],
+    axios.get(`https://localhost:44321/location/countries`)
+      .then(response => {
+         const countryList = response.data.data.map(country => ({
+          name: country.name,
+          code: country.countryID
+        }));
+        setCountries(countryList);
+        setSelectedCountry(countryList[0]?.code || '');
+      })
+      .catch(error => console.error('Error fetching countries:', error));
+  }, []);
+
+  // Fetch cities when a country is selected
+  useEffect(() => {
+    if (!selectedCountry) return;
+
+    const options = {
+      method: 'GET',
+      url: `https://localhost:44321/location/cities?countryID=${selectedCountry}`
     };
 
-    setCities(countryCities[selectedCountry] || []);
-    setSelectedCity(countryCities[selectedCountry] ? countryCities[selectedCountry][0] : ''); // Default city
+    axios.request(options)
+      .then(response => {
+        console.log(response);
+      
+        const cityList = response.data.data.map(region => region.name);
+        setCities(cityList);
+        setSelectedCity(cityList[0] || '');
+      })
+      .catch(error => console.error('Error fetching cities:', error));
   }, [selectedCountry]);
-
 
   useEffect(() => {
     if (!selectedCity) return;
 
     getWeatherData();
   }, [selectedCity]);
+
+
 
   const getWeatherData = () => {
     setIsLoading(true);
