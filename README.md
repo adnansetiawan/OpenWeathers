@@ -2,6 +2,7 @@
 1. Unit Testing using xUnit
 2. The exception at the API level is handled by custom middleware in the **ErrorMiddleware.cs** file where Exception errors will be translated into different types of HTTP response errors.
 3. Based on the requirements, since the .NET project uses .NET 3.1, some packages may be shown as vulnerable or deprecated.
+4. The API data for countries and cities uses mocked data at the service level
 
 **Service and API Projects**
 
