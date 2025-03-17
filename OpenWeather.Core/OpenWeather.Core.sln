@@ -7,6 +7,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Core", "OpenWea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Core.Tests", "..\OpenWeather.Core.Tests\OpenWeather.Core.Tests.csproj", "{7B8B74A5-0EF6-481C-85F1-8B842A6D2FBF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{DAA4E0E3-50B7-4D36-8E20-CE6C87E8FBC0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "api", "api", "{1F945432-C391-4AF9-ACBE-82490A53EC0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Api", "..\OpenWeather.Api\OpenWeather.Api.csproj", "{C91D6FBA-E8B0-4DA9-AB4C-208420FECB10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenWeather.Api.Tests", "..\OpenWeather.Api.Tests\OpenWeather.Api.Tests.csproj", "{0FC6DEB8-8B15-4201-8489-F9F3D1BC6D0F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +29,22 @@ Global
 		{7B8B74A5-0EF6-481C-85F1-8B842A6D2FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7B8B74A5-0EF6-481C-85F1-8B842A6D2FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7B8B74A5-0EF6-481C-85F1-8B842A6D2FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C91D6FBA-E8B0-4DA9-AB4C-208420FECB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C91D6FBA-E8B0-4DA9-AB4C-208420FECB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C91D6FBA-E8B0-4DA9-AB4C-208420FECB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C91D6FBA-E8B0-4DA9-AB4C-208420FECB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FC6DEB8-8B15-4201-8489-F9F3D1BC6D0F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FC6DEB8-8B15-4201-8489-F9F3D1BC6D0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FC6DEB8-8B15-4201-8489-F9F3D1BC6D0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FC6DEB8-8B15-4201-8489-F9F3D1BC6D0F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{226E7027-D80F-4CAC-9FF1-B0A563666BE8} = {DAA4E0E3-50B7-4D36-8E20-CE6C87E8FBC0}
+		{7B8B74A5-0EF6-481C-85F1-8B842A6D2FBF} = {DAA4E0E3-50B7-4D36-8E20-CE6C87E8FBC0}
+		{C91D6FBA-E8B0-4DA9-AB4C-208420FECB10} = {1F945432-C391-4AF9-ACBE-82490A53EC0E}
+		{0FC6DEB8-8B15-4201-8489-F9F3D1BC6D0F} = {1F945432-C391-4AF9-ACBE-82490A53EC0E}
 	EndGlobalSection
 EndGlobal

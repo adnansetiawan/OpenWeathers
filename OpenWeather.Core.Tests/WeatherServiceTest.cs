@@ -41,7 +41,7 @@ namespace OpenWeather.Core.Tests
 
         [Fact]
         
-        public async Task GetOkStatus()
+        public async Task TemperaturConvertionIsCorrect()
         {
             var mockConfiguration = new Mock<IConfiguration>();
 
@@ -79,8 +79,8 @@ namespace OpenWeather.Core.Tests
             {
             });
             // Assert
-            Assert.Equal("Clouds", result.Weather[0].Main);
-            
+            Assert.Equal(136.93, result.Main.TempInCelcius);
+           
         }
         [Fact]
 
@@ -125,6 +125,7 @@ namespace OpenWeather.Core.Tests
             Assert.Equal("404", exception.Code);
         }
 
+        
     }
     
 }

@@ -9,6 +9,6 @@ namespace OpenWeather.Core.Dto
     {
         public string CityName { get; set; }
 
-        public string AppId { get; set; }
+       
     }
 }
