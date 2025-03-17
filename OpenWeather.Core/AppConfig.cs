@@ -4,12 +4,12 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OpenWeather.Core.Services
+namespace OpenWeather.Core
 {
     public class AppConfig : IAppConfig
     {
         private readonly IConfiguration _configuration;
-        public AppConfig(IConfiguration configuration) 
+        public AppConfig(IConfiguration configuration)
         {
             _configuration = configuration;
         }

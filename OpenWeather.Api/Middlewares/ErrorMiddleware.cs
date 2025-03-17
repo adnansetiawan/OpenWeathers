@@ -33,7 +33,7 @@ namespace OpenWeather.Api.Middlewares
             }
             catch (BadRequestException e)
             {
-                context.Response.StatusCode = int.Parse(e.Code);
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 var modelState = new ModelStateDictionary();
                 modelState.AddModelError(string.Empty, e.Message);
                 error = new ValidationResultModel(modelState, int.Parse(e.Code));
@@ -41,7 +41,7 @@ namespace OpenWeather.Api.Middlewares
             }
             catch (DataNotFoundException e)
             {
-                context.Response.StatusCode = int.Parse(e.Code);
+                context.Response.StatusCode = (int) HttpStatusCode.NotFound;
                 var modelState = new ModelStateDictionary();
                 modelState.AddModelError(string.Empty, e.Message);
                 error = new ValidationResultModel(modelState, int.Parse(e.Code));
