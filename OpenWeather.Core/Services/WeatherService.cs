@@ -33,31 +33,30 @@ namespace OpenWeather.Core.Services
             }
             var client = _httpClientFactory.CreateClient();
             var response = await client.GetAsync($"{BaseUrl}?q={request.CityName}&APPID={_appConfig.AppId}");
+            var stringContent = await response.Content.ReadAsStringAsync();
+
             if (response.IsSuccessStatusCode)
             {
-                var stringContent = await response.Content.ReadAsStringAsync();
-
-                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherApiResponse>(stringContent);
-                return result;
+                
+                var OkResult = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherApiResponse>(stringContent);
+                return OkResult;
             }
-            else
+           
+            var ErrorResult = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherApiErrorResponse>(stringContent);
+            if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
             {
-                var stringContent = await response.Content.ReadAsStringAsync();
-                var result = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherApiErrorResponse>(stringContent);
-                if (response.StatusCode == System.Net.HttpStatusCode.NotFound)
-                {
-                    throw new Core.Exceptions.DataNotFoundException(result.Code, result.Message);
-                }
-                if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
-                {
-                    throw new Core.Exceptions.UnauthorizedException(result.Code, result.Message);
-                }
-                if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
-                {
-                    throw new Core.Exceptions.BadRequestException(result.Code, result.Message);
-                }
-                throw new Core.Exceptions.InternalServerErrorRequestException(result.Message);
+                throw new Core.Exceptions.DataNotFoundException(ErrorResult.Code, ErrorResult.Message);
             }
+            if (response.StatusCode == System.Net.HttpStatusCode.Unauthorized)
+            {
+                throw new Core.Exceptions.UnauthorizedException(ErrorResult.Code, ErrorResult.Message);
+            }
+            if (response.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                throw new Core.Exceptions.BadRequestException(ErrorResult.Code, ErrorResult.Message);
+            }
+            throw new Core.Exceptions.InternalServerErrorRequestException(ErrorResult.Message);
+            
            
         }
            
