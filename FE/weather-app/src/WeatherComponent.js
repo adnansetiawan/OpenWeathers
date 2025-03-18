@@ -11,7 +11,8 @@ const WeatherComponent = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const baseUrl = "https://localhost:44321";
+  const baseUrl = process.env.REACT_APP_BASE_API_URL;
+ 
   // Fetch countries from Countries API
   useEffect(() => {
     axios.get(`${baseUrl}/location/countries`)
