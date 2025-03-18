@@ -24,9 +24,10 @@
 **FE ReactJs**
 1. Install NodeJs and NPM
 2. Navigate to the **OpenWeathers\FE\weather-app** folder 
-3. Change the value of the **baseUrl** variable in the **WeatherComponent.js** file to match the base URL of the API that is currently running.
+3. Change the value of the **REACT_APP_BASE_API_URL** variable in the **.env** file to match the base URL of the API that is currently running.
    
-![image](https://github.com/user-attachments/assets/197bacc1-90c9-47bc-8729-c4757ccda165)
+![image](https://github.com/user-attachments/assets/d033025c-feab-4f26-8292-c1657e954526)
+
 
    
 5. Open terminal that folder and type **npm start**. App will running in browser
